@@ -9,22 +9,13 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        // Mengambil data dari Model
-        $authors = Author::getAllAuthors();
-        
-        // Mengirim data ke View
+        $authors = Author::all();
         return view('authors.index', compact('authors'));
     }
-    
+
     public function show($id)
     {
-        $authors = Author::getAllAuthors();
-        $author = collect($authors)->firstWhere('id', $id);
-        
-        if (!$author) {
-            abort(404);
-        }
-        
+        $author = Author::with('books')->findOrFail($id);
         return view('authors.show', compact('author'));
     }
 }

@@ -1,17 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts/app');
 });
 
-// Route untuk Genre
-Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
-Route::get('/genres/{id}', [GenreController::class, 'show'])->name('genres.show');
-
-// Route untuk Author
+// Route untuk Authors
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/{id}', [AuthorController::class, 'show'])->name('authors.show');
+
+// Route untuk Books
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
