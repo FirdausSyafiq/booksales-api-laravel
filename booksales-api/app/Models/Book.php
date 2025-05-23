@@ -9,10 +9,32 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'author_id', 'isbn', 'description', 'published_year', 'price'];
+    protected $table = 'books';
 
+    protected $fillable = [
+        'title',
+        'author_id',
+        'genre_id',
+        'isbn',
+        'description',
+        'cover_photo',
+        'published_year',
+        'price'
+    ];
+
+    /**
+     * Get the author that owns the book.
+     */
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    /**
+     * Get the genre that the book belongs to.
+     */
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
     }
 }

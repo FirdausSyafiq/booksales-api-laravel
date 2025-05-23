@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('author_id')->constrained()->onDelete('cascade');
+            $table->foreignId('genre_id')->constrained()->onDelete('cascade');
             $table->string('isbn')->unique();
             $table->text('description')->nullable();
+            $table->string('cover_photo')->nullable();
             $table->integer('published_year');
             $table->decimal('price', 10, 2);
             $table->timestamps();

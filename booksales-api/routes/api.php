@@ -13,11 +13,14 @@ Route::get('/user', function (Request $request) {
 // Route untuk Authors
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/{id}', [AuthorController::class, 'show'])->name('authors.show');
+Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
 
 // Route untuk Books
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+Route::post('/books', [BookController::class, 'store'])->name('books.store');
 
 // Route untuk genres
 Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
 Route::get('/genres/{id}', [GenreController::class, 'show'])->name('genres.show');
+Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
