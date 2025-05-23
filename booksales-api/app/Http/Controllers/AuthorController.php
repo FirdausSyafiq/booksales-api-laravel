@@ -60,7 +60,83 @@ class AuthorController extends Controller
 
     public function show($id)
     {
-        $author = Author::with('books')->findOrFail($id);
-        return view('authors.show', compact('author'));
+        $author = Author::with('books')->find($id);
+        
+        if (!$author) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+                'data' => []
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Get resource by ID',
+            'data' => $author
+        ], 200);
+    }
+
+    public function update(string $id, Request $request)
+    {
+        $author = Author::find($id);
+
+        if (!$author) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+                'data' => []
+            ], 404);
+        }
+
+        // Validator
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|unique:authors,email,' . $id,
+            'bio' => 'required|string'
+        ]);
+
+        // Check validator error
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        // Siapkan data yang ingin di update
+        $author->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'bio' => $request->bio
+        ]);
+
+        // Response
+        return response()->json([
+            'success' => true,
+            'message' => 'Resource updated successfully',
+            'data' => $author
+        ], 200);
+    }
+
+
+    public function destroy($id)
+    {
+        $author = Author::find($id);
+
+        if (!$author) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Resource not found',
+                'data' => []
+            ], 404);
+        }
+
+        $author->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Resource deleted successfully',
+            'data' => $author
+        ], 200);
     }
 }
