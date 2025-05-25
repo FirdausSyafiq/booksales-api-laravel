@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
@@ -10,23 +11,30 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+// Route untuk login
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:api');
+
 // Route untuk Authors
-Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
-Route::get('/authors/{id}', [AuthorController::class, 'show'])->name('authors.show');
-Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
-Route::delete('/authors/{id}', [AuthorController::class, 'destroy'])->name('authors.destroy');
-Route::post('/authors/{id}', [AuthorController::class, 'update'])->name('authors.update');
+Route::apiResource('authors', AuthorController::class)->only(['index', 'show']);
 
 // Route untuk Books
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
-Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
-Route::post('/books', [BookController::class, 'store'])->name('books.store');
-Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
-Route::post('/books/{id}', [BookController::class, 'update'])->name('books.update');
+Route::apiResource('books', BookController::class)->only(['index', 'show']);
 
 // Route untuk genres
-Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
-Route::get('/genres/{id}', [GenreController::class, 'show'])->name('genres.show');
-Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
-Route::delete('/genres/{id}', [GenreController::class, 'destroy'])->name('genres.destroy');
-Route::post('/genres/{id}', [GenreController::class, 'update'])->name('genres.update');
+Route::apiResource('genres', GenreController::class)->only(['index', 'show']);
+
+Route::middleware(['auth:api'])->group(function () {
+    
+    Route::middleware(['role:admin'])->group(function () {
+        // Route untuk Books
+        Route::apiResource('books', BookController::class)->only(['store', 'update', 'destroy']);
+        // Route untuk Authors
+        Route::apiResource('authors', AuthorController::class)->only(['store', 'update', 'destroy']);
+        // Route untuk genres
+        Route::apiResource('genres', GenreController::class)->only(['store', 'update', 'destroy']);
+    });
+    
+});
+
