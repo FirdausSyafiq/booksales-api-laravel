@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('author_id')->constrained()->onDelete('cascade');
-            $table->foreignId('genre_id')->constrained()->onDelete('cascade');
             $table->string('isbn')->unique();
             $table->text('description')->nullable();
             $table->string('cover_photo')->nullable();
             $table->integer('published_year');
             $table->decimal('price', 10, 2);
+            $table->integer('stock');
+            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade');
             $table->timestamps();
         });
     }

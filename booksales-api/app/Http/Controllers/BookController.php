@@ -32,13 +32,14 @@ class BookController extends Controller
         // Validator
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',
-            'author_id' => 'required|exists:authors,id',
-            'genre_id' => 'required|exists:genres,id',
             'isbn' => 'required|string|unique:books,isbn',
             'description' => 'required|string',
             'cover_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'published_year' => 'required|integer',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'author_id' => 'required|exists:authors,id',
+            'genre_id' => 'required|exists:genres,id'
         ]);
 
         // Check validator error
@@ -56,13 +57,14 @@ class BookController extends Controller
         // Insert data
         $book = Book::create([
             'title' => $request->title,
-            'author_id' => $request->author_id,
-            'genre_id' => $request->genre_id,
             'isbn' => $request->isbn,
             'description' => $request->description,
             'cover_photo' => $image->hashName(),
             'published_year' => $request->published_year,
-            'price' => $request->price
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'author_id' => $request->author_id,
+            'genre_id' => $request->genre_id
         ]);
 
         // Response
@@ -107,13 +109,14 @@ class BookController extends Controller
         // Validator
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',
-            'author_id' => 'required|exists:authors,id',
-            'genre_id' => 'required|exists:genres,id',
             'isbn' => 'required|string|unique:books,isbn',
             'description' => 'required|string',
             'cover_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'published_year' => 'required|integer',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'author_id' => 'required|exists:authors,id',
+            'genre_id' => 'required|exists:genres,id'
         ]);
 
         // Check validator error
@@ -127,12 +130,13 @@ class BookController extends Controller
         // Siapkan data yang ingin diupdate
         $data = [
             'title' => $request->title,
-            'author_id' => $request->author_id,
-            'genre_id' => $request->genre_id,
             'isbn' => $request->isbn,
             'description' => $request->description,
             'published_year' => $request->published_year,
-            'price' => $request->price
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'author_id' => $request->author_id,
+            'genre_id' => $request->genre_id
         ];
 
         // Handle image (upload & delete photo)

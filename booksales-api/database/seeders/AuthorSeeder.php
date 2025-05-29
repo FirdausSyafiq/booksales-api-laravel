@@ -12,32 +12,31 @@ class AuthorSeeder extends Seeder
      */
     public function run(): void
     {
-        // Membuat 5 data dummy author
         $authors = [
             [
                 'name' => 'Andrea Hirata',
-                'email' => 'andrea@example.com',
-                'bio' => 'Penulis novel Laskar Pelangi dan beberapa karya terkenal lainnya.'
+                'email' => 'andrea.hirata@email.com',
+                'bio' => 'Penulis Indonesia yang terkenal dengan novel Laskar Pelangi. Lahir di Belitung dan mengangkat keindahan pulau kelahirannya dalam karya-karyanya.'
             ],
             [
                 'name' => 'Tere Liye',
-                'email' => 'tere@example.com',
-                'bio' => 'Penulis produktif Indonesia dengan banyak novel bestseller.'
+                'email' => 'tere.liye@email.com',
+                'bio' => 'Penulis produktif Indonesia dengan nama asli Darwis. Dikenal dengan serial novel anak dan remaja yang inspiratif.'
             ],
             [
                 'name' => 'Pramoedya Ananta Toer',
-                'email' => 'pram@example.com',
-                'bio' => 'Sastrawan Indonesia yang terkenal dengan tetralogi Buru.'
+                'email' => 'pramoedya@email.com',
+                'bio' => 'Sastrawan Indonesia terkemuka, penulis Tetralogi Buru. Penerima berbagai penghargaan sastra internasional.'
             ],
             [
                 'name' => 'Dee Lestari',
-                'email' => 'dee@example.com',
-                'bio' => 'Penulis seri Supernova dan mantan penyanyi Dewi Lestari.'
+                'email' => 'dee.lestari@email.com',
+                'bio' => 'Penulis, penyanyi, dan komposer Indonesia. Dikenal dengan novel Supernova yang menggabungkan sains dan sastra.'
             ],
             [
                 'name' => 'Eka Kurniawan',
-                'email' => 'eka@example.com',
-                'bio' => 'Penulis Cantik Itu Luka dan Lelaki Harimau yang telah diterjemahkan ke berbagai bahasa.'
+                'email' => 'eka.kurniawan@email.com',
+                'bio' => 'Penulis Indonesia yang karyanya telah diterjemahkan ke berbagai bahasa. Dikenal dengan gaya penulisan yang unik dan kritis.'
             ]
         ];
 

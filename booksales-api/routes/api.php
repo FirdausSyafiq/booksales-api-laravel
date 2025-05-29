@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -25,8 +26,11 @@ Route::apiResource('books', BookController::class)->only(['index', 'show']);
 // Route untuk genres
 Route::apiResource('genres', GenreController::class)->only(['index', 'show']);
 
+
 Route::middleware(['auth:api'])->group(function () {
-    
+    // Route untuk Transactions
+    Route::apiResource('transactions', TransactionController::class)->only(['index', 'store', 'show']);
+
     Route::middleware(['role:admin'])->group(function () {
         // Route untuk Books
         Route::apiResource('books', BookController::class)->only(['store', 'update', 'destroy']);
@@ -34,6 +38,8 @@ Route::middleware(['auth:api'])->group(function () {
         Route::apiResource('authors', AuthorController::class)->only(['store', 'update', 'destroy']);
         // Route untuk genres
         Route::apiResource('genres', GenreController::class)->only(['store', 'update', 'destroy']);
+        // Route untuk Transactions
+        Route::apiResource('transactions', TransactionController::class)->only(['update', 'destroy']);
     });
     
 });
